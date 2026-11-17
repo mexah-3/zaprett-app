@@ -15,10 +15,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Rust & Android targets
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
+      - name: Install Rust Android targets
+        run: |
+          rustup default stable
+          rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
 
       - name: Fix libgcc for preinstalled NDK 27
         run: |
