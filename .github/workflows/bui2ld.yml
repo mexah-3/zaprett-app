@@ -1,4 +1,4 @@
-name: zapretka
+name: Build APK
 on:
   push:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Android SDK & NDK
         uses: android-actions/setup-android@v3
         with:
-          packages: 'platform-tools platforms;android-34 build-tools;34.0.0 ndk;26.1.10909125'
+          packages: 'platform-tools platforms;android-34 build-tools;34.0.0 ndk;25.2.9519653'
 
       - name: Install Rust & Android targets
         uses: dtolnay/rust-toolchain@stable
@@ -26,7 +26,7 @@ jobs:
           targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
 
       - name: Set NDK environment variable
-        run: echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/26.1.10909125" >> $GITHUB_ENV
+        run: echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/25.2.9519653" >> $GITHUB_ENV
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -39,3 +39,4 @@ jobs:
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+
