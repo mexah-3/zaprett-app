@@ -15,19 +15,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Android SDK & NDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: 'platform-tools platforms;android-34 build-tools;34.0.0 ndk;27.0.12077973'
-
       - name: Install Rust & Android targets
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,x86_64-linux-android,i686-linux-android
 
-      - name: Fix libgcc for NDK 27
+      - name: Fix libgcc for preinstalled NDK 27
         run: |
-          find $ANDROID_SDK_ROOT/ndk -name "libunwind.a" | while read f; do
+          find /usr/local/lib/android/sdk/ndk -name "libunwind.a" 2>/dev/null | while read f; do
             dir=$(dirname "$f")
             echo "INPUT(-lunwind)" > "$dir/libgcc.a"
           done
